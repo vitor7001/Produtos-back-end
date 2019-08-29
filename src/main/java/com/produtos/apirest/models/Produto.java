@@ -10,13 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//classe que irá gerar a tabela do banco de dados
 @Entity
+//nome da tabela
 @Table(name= "TB_PRODUTO")
 public class Produto implements Serializable{
 	
 	private static final long serialVersionUID = 1l;
 	
-	
+	//chave priária sendo gerada automática pelo hibernate
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
