@@ -1,14 +1,9 @@
 package com.produtos.apirest.config;
 
-import static springfox.documentation.builders.PathSelectors.regex;
 
-import java.util.ArrayList;
-
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -16,20 +11,15 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+
+import static springfox.documentation.builders.PathSelectors.regex;
+
+import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan("com.produtos.apirest.resource\"")
-public class SwaggerConfig extends WebMvcConfigurationSupport {
-	
-	  @Override
-	    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("swagger-ui.html")
-	                .addResourceLocations("classpath:/META-INF/resources/");
-	        registry.addResourceHandler("/webjars/**")
-	                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-	    }
+public class SwaggerConfig {
 	
 	@Bean
     public Docket productApi() {
@@ -40,20 +30,22 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .build()
                 .apiInfo(metaInfo());
     }
+
     private ApiInfo metaInfo() {
 
-        ApiInfo apiInfo = new ApiInfo(
+        @SuppressWarnings("rawtypes")
+		ApiInfo apiInfo = new ApiInfo(
                 "Produtos API REST",
                 "API REST de cadastro de produtos.",
                 "1.0",
                 "Terms of Service",
                 new Contact("Vitor Gomes Pereira", "https://www.linkedin.com/in/vitor-g-pereira/",
-                        "vitorgoes7001@gmail.com"),
+                        "michellidibrito@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
         );
 
         return apiInfo;
     }
-	
+
 }
