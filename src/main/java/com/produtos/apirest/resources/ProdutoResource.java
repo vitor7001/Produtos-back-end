@@ -20,6 +20,7 @@ import com.produtos.apirest.repository.ProdutoRepository;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/api")
@@ -28,6 +29,8 @@ public class ProdutoResource {
 	
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+
 	
 	@ApiOperation(value="Retorna uma lista de Produtos")
 	@GetMapping("/produtos")
