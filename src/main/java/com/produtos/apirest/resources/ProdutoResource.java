@@ -2,6 +2,8 @@ package com.produtos.apirest.resources;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,49 +20,44 @@ import com.produtos.apirest.repository.ProdutoRepository;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
-@RestController
-@RequestMapping(value = "/api")
-@Api(value = "API Rest Produtos")
 @CrossOrigin(origins = "*")
+@RestController
+@RequestMapping(value="/api")
+@Api(value="API REST Produtos")
 public class ProdutoResource {
-
-	// interface que possui os comandos implementados de persistencia
+	
 	@Autowired
 	ProdutoRepository produtoRepository;
-
-	// buscar por todos os produtos
+	
+	@ApiOperation(value="Retorna uma lista de Produtos")
 	@GetMapping("/produtos")
-	@ApiOperation(value = "Este método retorna todos os Produtos do banco de dados")
-	public List<Produto> listarTodos() {
+	public List<Produto> listaProdutos(){
 		return produtoRepository.findAll();
 	}
-
-	// buscar por todo um produto
-	@GetMapping("/produtos/{id}")
-	@ApiOperation(value = "Este método retorna um único Produto do banco de dados")
-	public Produto listarProdutoUnicos(@PathVariable(value = "id") long id) {
+	
+	@ApiOperation(value="Retorna um produto unico")
+	@GetMapping("/produto/{id}")
+	public Produto listaProdutoUnico(@PathVariable(value="id") long id){
 		return produtoRepository.findById(id);
 	}
-
-	// inserir um produto no banco de dados
-	@PostMapping("/produtos")
-	@ApiOperation(value = "Este método salva um Produtos no banco de dados")
-	public Produto salvarProduto(@RequestBody Produto produto) {
+	
+	@ApiOperation(value="Salva um produto")
+	@PostMapping("/produto")
+	public Produto salvaProduto(@RequestBody @Valid Produto produto) {
 		return produtoRepository.save(produto);
 	}
-
-	// deletar um produto do banco de dados
-	@DeleteMapping("/produtos")
-	@ApiOperation(value = "Este método deleta um Produtos do banco de dados")
-	public void deletarProduto(@RequestBody Produto produto) {
+	
+	@ApiOperation(value="Deleta um produto")
+	@DeleteMapping("/produto")
+	public void deletaProduto(@RequestBody @Valid Produto produto) {
 		produtoRepository.delete(produto);
 	}
-
-	// atualizar algum produto do banco de dados e retorna o mesmo
-	@PutMapping("/produtos")
-	@ApiOperation(value = "Este método atualiza um Produtos do banco de dados")
-	public Produto atualizarProduto(@RequestBody Produto produto) {
+	
+	@ApiOperation(value="Atualiza um produto")
+	@PutMapping("/produto")
+	public Produto atualizaProduto(@RequestBody @Valid Produto produto) {
 		return produtoRepository.save(produto);
 	}
+	 
+
 }
